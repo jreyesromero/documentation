@@ -5,13 +5,18 @@
 ## Quick Reference
 
 ```bash
+# macOS syntax
 top                    # Start interactive mode
-top -l 1              # Show once and exit (macOS)
-top -b -n 1           # Batch mode, one iteration (Linux)
+top -l 1              # Show once and exit
 top -p PID            # Monitor specific process
+top -o %CPU           # Sort by CPU
+top -o %MEM           # Sort by memory
+
+# Linux syntax
+top -b -n 1           # Batch mode, one iteration
+top -p PID -b -n 1    # Monitor specific process (non-interactive)
 top -u username       # Show processes for user
-top -o %CPU           # Sort by CPU (macOS)
-top -o %MEM           # Sort by memory (macOS)
+top -o %CPU -b -n 1   # Show sorted by CPU (batch mode)
 ```
 
 ---
@@ -127,10 +132,12 @@ A: Run `top -p PID` and watch the MEM column over 10+ minutes. If it keeps incre
   - `o` — Open filter dialog
   - Example: filter by user with `user=username`
 
-- **Batch mode for scripting (Linux):**
+- **Batch mode for scripting (Linux only):**
   ```bash
   top -b -n 1 | tail -n +8
   ```
+  
+  Note: macOS doesn't support batch mode. Use `top -l 1` instead.
 
 - **Compare with `ps aux`:**
   - `ps aux` — Static snapshot
