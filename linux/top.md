@@ -8,13 +8,13 @@
 # macOS syntax
 top                    # Start interactive mode
 top -l 1              # Show once and exit
-top -p PID            # Monitor specific process
+top -pid PID            # Monitor specific process
 top -o %CPU           # Sort by CPU
 top -o %MEM           # Sort by memory
 
 # Linux syntax
 top -b -n 1           # Batch mode, one iteration
-top -p PID -b -n 1    # Monitor specific process (non-interactive)
+top -pid PID -b -n 1    # Monitor specific process (non-interactive)
 top -u username       # Show processes for user
 top -o %CPU -b -n 1   # Show sorted by CPU (batch mode)
 ```
@@ -75,7 +75,7 @@ top
 ### 2. Monitor Specific Process
 
 ```bash
-top -p 12345
+top -pid 12345
 ```
 
 Useful for watching a single application's resource consumption over time.
@@ -92,7 +92,7 @@ Look at "Load Avg" — if it's consistently > number of CPU cores, the system is
 
 Watch a long-running process:
 ```bash
-top -p PID -l 100 -s 1
+top -pid PID -l 100 -s 1
 ```
 
 If memory keeps growing, it's likely a leak. Note the resident memory (RSS in ps output) over time.
@@ -116,7 +116,7 @@ A: Run `top`, sort by %CPU, and watch for processes consistently using >50% CPU.
 A: System is under-utilized. Load should be watched against core count. If 2.5 on 4-core, it's healthy. If 2.5 on 2-core, it's overloaded.
 
 **Q: How would you monitor if a service is leaking memory?**
-A: Run `top -p PID` and watch the MEM column over 10+ minutes. If it keeps increasing, there's a leak.
+A: Run `top -pid PID` and watch the MEM column over 10+ minutes. If it keeps increasing, there's a leak.
 
 ---
 
