@@ -29,6 +29,13 @@ Welcome to the documentation repository for DevOps, Platform Engineers, and SRE 
   - 14+ interview scenarios covering both conceptual and hands-on rounds
   - **Coverage:** Conceptual round + dedicated hands-on troubleshooting round
 
+- **[Algorithms & Coding](./algorithms-coding/algorithms-coding.md)** — LeetCode patterns with Python solutions
+  - 8 files: Interview Protocol, Complexity Analysis, and 6 pattern guides
+  - 22 verified LeetCode problems grouped by pattern, with annotated solutions
+  - Arrays/HashMap, Two Pointers, Sliding Window, Stack, Trees/Graphs, Binary Search/Linked Lists
+  - The 6-step interview protocol and Big-O analysis
+  - **Coverage:** 25% of typical SRE technical interview (the coding round)
+
 ---
 
 **Technical Interview Preparation:** These documents cover the core technical areas commonly tested in SRE and DevOps interviews. Start with Linux fundamentals, then progress to Networking, Algorithms/Python, DevOps fundamentals, and Kubernetes.
