@@ -281,3 +281,210 @@ Check the STARTED column to see when it began. Compare VSZ and RSS to see memory
 
 4. **Memory appears to exceed 100%:** With modern memory management, this is possible due to memory sharing, swapping, etc.
 
+---
+
+## SRE Troubleshooting Scenarios
+
+### Scenario 1: Service Memory Leak Detected in Production
+
+**Problem:** Your monitoring alerts show a service memory growing unbounded. It was at 500MB this morning, now at 2GB. You need to investigate before it crashes.
+
+**Investigation Steps:**
+```bash
+# 1. Find the process
+ps aux | grep service_name | grep -v grep
+
+# 2. Get initial snapshot (note the RSS value)
+ps aux | grep service_name
+
+# 3. Check memory growth over time
+while true; do
+  echo "$(date) - $(ps aux | grep service_name | grep -v grep | awk '{print $6}')"
+  sleep 60
+done
+
+# 4. If confirmed leak, check child processes
+ps -ef | grep service_name
+
+# 5. Get detailed process info including file descriptors
+ps aux | grep service_name | grep -v grep | awk '{print "PID:", $2, "Memory:", $6, "Time:", $10}'
+```
+
+**What to Look For:**
+- RSS (column 6 in `ps aux`) continuously increasing = likely memory leak
+- High %MEM and process age (TIME column) correlate = sustained high memory
+- Multiple child processes = check if one specific child is leaking
+- VSZ >> RSS = potential memory fragmentation
+
+**Next Steps:** Use `top -pid PID` for real-time monitoring, then check application logs with `journalctl`.
+
+---
+
+### Scenario 2: Orphaned/Zombie Processes Accumulating
+
+**Problem:** Monitoring shows process count growing, but no new services started. You suspect zombie processes.
+
+**Investigation Steps:**
+```bash
+# 1. Find all zombies
+ps aux | grep Z
+
+# 2. Count them
+ps aux | grep ' Z ' | wc -l
+
+# 3. Identify their parents (PPID column)
+ps aux | grep ' Z ' | awk '{print "Zombie PID:", $2, "Parent PID:", $3}'
+
+# 4. Find the parent process
+ps aux | grep PPID_from_above
+
+# 5. Check if parent is misbehaving
+ps -ef | grep PARENT_PID
+```
+
+**What This Means:**
+- Zombies = process exited but parent didn't call `wait()`
+- Parent PID still running = parent has a bug (not reaping children)
+- If parent is PID 1 (init) = child's parent died, orphaned
+
+**Fix:** Restart the parent process or the entire service:
+```bash
+systemctl restart service_name
+```
+
+---
+
+### Scenario 3: Sudden CPU Spike - Find the Culprit
+
+**Problem:** CPU jumps from 5% to 80% unexpectedly. Users reporting slowness.
+
+**Investigation Steps:**
+```bash
+# 1. Find top CPU consumers
+ps aux | sort -k 3 -rn | head -5
+
+# 2. Check if it's a legitimate service
+ps aux | grep -E "nginx|postgres|app_name"
+
+# 3. Check if multiple processes are offending
+ps aux | awk '$3 > 20 {print $0}'  # Show all processes using >20% CPU
+
+# 4. Check process creation time
+ps aux | grep culprit_process | grep -v grep | awk '{print "Started:", $9, "Time Used:", $10}'
+
+# 5. Check if it spawned children
+ps -ef | grep culprit_pid
+```
+
+**What to Look For:**
+- One process with >50% CPU = that's your issue
+- Multiple processes with high CPU = possible DDoS or batch job
+- STIME (start time) very recent = new process causing issue
+- TIME very high = process has been running long accumulating CPU
+
+**Quick Fix:** Check logs, then restart if needed:
+```bash
+systemctl restart service_name
+```
+
+---
+
+### Scenario 4: Process Vanished - Was It Running?
+
+**Problem:** Investigating an incident. Need to prove if a service was running at a specific time.
+
+**Investigation Steps:**
+```bash
+# Current snapshot
+ps aux | grep service_name
+
+# Check if it's in process list at all
+ps -ef | grep -i service | grep -v grep
+
+# If not running, check logs for when it crashed
+journalctl -u service_name --since "2 hours ago" | grep -E "EXIT|FAIL|ERROR"
+
+# Check restart history
+systemctl status service_name | grep -i active
+
+# Get detailed historical view
+journalctl -u service_name -n 100 | head -20
+```
+
+**What This Tells You:**
+- Process not in `ps` output = either crashed or never started
+- Check Exit status in logs to understand why it stopped
+- Use timestamps to build incident timeline
+
+---
+
+### Scenario 5: Resource Limits - Process Hitting Ceiling
+
+**Problem:** A process keeps failing with "too many open files" or similar errors.
+
+**Investigation Steps:**
+```bash
+# 1. Find the process
+ps aux | grep service_name | grep -v grep
+
+# 2. Check resource usage
+ps aux | grep service_name | awk '{print "VSZ:", $5, "RSS:", $6, "Threads:", $11}'
+
+# 3. Check actual limits (need lsof or /proc)
+# On Linux:
+cat /proc/PID/limits
+
+# 4. Check if hitting memory ceiling
+ps aux | awk '$4 > 80 {print "High memory:", $0}'
+
+# 5. Check parent process for inherited limits
+ps -ef | grep PID
+```
+
+**What to Look For:**
+- %MEM approaching 95%+ = hitting memory ceiling
+- VSZ much larger than RSS = memory available but committed
+- Check systemd service file for MemoryLimit settings
+
+**Solution:** Either increase limits or optimize the application.
+
+---
+
+### Scenario 6: Application Won't Die - Stuck Process
+
+**Problem:** `systemctl stop service` hangs. Process seems stuck.
+
+**Investigation Steps:**
+```bash
+# 1. Check its state
+ps aux | grep stuck_process
+
+# 2. Look for state (column 8)
+ps aux | grep stuck_process | awk '{print "State:", $8}'
+
+# 3. If state is 'D' (uninterruptible sleep), it's waiting for I/O
+#    If 'T' (stopped), someone paused it
+#    If 'S' (sleeping), it should respond
+
+# 4. Check what it's doing
+# On Linux, check if blocked on I/O:
+cat /proc/PID/status | grep State
+
+# 5. Check if it has network connections holding it
+lsof -i -p PID
+
+# 6. Force kill if necessary
+kill -9 PID
+```
+
+**What Each State Means:**
+- **S** = sleeping (responsive, can be stopped)
+- **D** = uninterruptible sleep (waiting for disk I/O, cannot be killed normally)
+- **T** = stopped (paused, someone ran kill -STOP)
+- **Z** = zombie (dead but parent hasn't reaped)
+
+**Fix:**
+- If `D` state: wait for I/O or restart system
+- If `T` state: `kill -CONT PID`
+- If stuck: `kill -9 PID` then `systemctl start service`
+
