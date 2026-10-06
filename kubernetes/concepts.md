@@ -5,23 +5,21 @@ The essential objects that make up a Kubernetes cluster. Know what each one does
 ## The Big Picture
 
 ```
-        ┌─────────────────────────────────────────────┐
-        │                  CLUSTER                      │
-        │                                               │
-        │   ┌─────────────── NAMESPACE ──────────────┐  │
-        │   │                                         │  │
-        │   │   Ingress → Service → Deployment        │  │
-        │   │                          │              │  │
-        │   │                      ReplicaSet         │  │
-        │   │                          │              │  │
-        │   │                    ┌─────┴─────┐        │  │
-        │   │                  Pod   Pod   Pod        │  │
-        │   │                   │                     │  │
-        │   │              [container(s)]             │  │
-        │   │                                         │  │
-        │   │   ConfigMap / Secret → injected into Pods│ │
-        │   └─────────────────────────────────────────┘  │
-        └───────────────────────────────────────────────┘
+┌── CLUSTER ─────────────────────────────────────┐
+│                                                │
+│   ┌── NAMESPACE ─────────────────────────────┐ │
+│   │                                          │ │
+│   │   Ingress → Service → Deployment         │ │
+│   │                           │              │ │
+│   │                      ReplicaSet          │ │
+│   │                           │              │ │
+│   │                  ┌────────┼────────┐     │ │
+│   │                 Pod      Pod      Pod    │ │
+│   │                                          │ │
+│   │   ConfigMap / Secret → injected → Pods   │ │
+│   └──────────────────────────────────────────┘ │
+│                                                │
+└────────────────────────────────────────────────┘
 ```
 
 ---
