@@ -107,14 +107,14 @@ Welcome to the Networking reference guide for SRE, DevOps, and Platform Engineer
 
 ## Coverage Summary
 
-| Topic | Concepts | Commands | Scenarios | Interview % |
-|-------|----------|----------|-----------|------------|
+| Topic | Concepts | Commands | Scenarios | Coverage |
+|-------|----------|----------|-----------|----------|
 | DNS | 8 concepts | 5+ | 6 | ✅ Complete |
 | TCP | 8 states | 2+ | 5 | ✅ Complete |
 | HTTP | Methods/codes | curl | 4 | ✅ Complete |
 | TLS | Certs/chains | openssl | 3 | ✅ Complete |
 | Tools | 4 tools | Full ref | Workflows | ✅ Complete |
-| **Total** | **28+ concepts** | **15+ commands** | **20+ scenarios** | **20% of Nebius SRE interview** |
+| **Total** | **28+ concepts** | **15+ commands** | **20+ scenarios** | **Comprehensive** |
 
 ---
 

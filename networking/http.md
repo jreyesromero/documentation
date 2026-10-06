@@ -485,7 +485,7 @@ journalctl -u api-service --since "1 minute ago" | grep -i slow
 
 ### Scenario 2: Interview Question - "Walk Me Through `curl https://example.com`"
 
-**Your detailed explanation (what Nebius wants to hear):**
+**Your detailed explanation (what interviewers want to hear):**
 
 ```
 "There are several layers involved:
