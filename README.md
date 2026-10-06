@@ -22,6 +22,13 @@ Welcome to the documentation repository for DevOps, Platform Engineers, and SRE 
   - 17+ interview scenarios with strong sample answers
   - **Coverage:** 15% of typical SRE technical interview
 
+- **[Kubernetes](./kubernetes/kubernetes.md)** — Concepts and hands-on troubleshooting
+  - 5 comprehensive files: Core Concepts, Probes & Resources, kubectl Commands, Troubleshooting
+  - Core objects, liveness/readiness probes, requests/limits, QoS
+  - Failure debugging: CrashLoopBackOff, OOMKilled, Pending, ImagePullBackOff, service issues
+  - 14+ interview scenarios covering both conceptual and hands-on rounds
+  - **Coverage:** Conceptual round + dedicated hands-on troubleshooting round
+
 ---
 
 **Technical Interview Preparation:** These documents cover the core technical areas commonly tested in SRE and DevOps interviews. Start with Linux fundamentals, then progress to Networking, Algorithms/Python, DevOps fundamentals, and Kubernetes.
