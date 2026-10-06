@@ -16,6 +16,12 @@ Welcome to the documentation repository for DevOps, Platform Engineers, and SRE 
   - Complete protocol walkthroughs (DNS resolution → TCP handshake → HTTP → TLS)
   - **Coverage:** 20% of typical SRE technical interview
 
+- **[DevOps & SRE Fundamentals](./devops-sre/devops-sre.md)** — Core reliability engineering concepts
+  - 5 comprehensive files: SRE Fundamentals, CI/CD, Deployment Strategies, IaC, Monitoring & Alerting
+  - SLI/SLO/SLA, error budgets, the four golden signals, deployment patterns
+  - 17+ interview scenarios with strong sample answers
+  - **Coverage:** 15% of typical SRE technical interview
+
 ---
 
 **Technical Interview Preparation:** These documents cover the core technical areas commonly tested in SRE and DevOps interviews. Start with Linux fundamentals, then progress to Networking, Algorithms/Python, DevOps fundamentals, and Kubernetes.
