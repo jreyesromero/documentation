@@ -15,15 +15,15 @@ This module provides **foundational Python knowledge** tailored for SRE/DevOps t
 
 | Module | Topic | Time | Focus |
 |--------|-------|------|-------|
-| 01 | Fundamentals | 1.5h | Variables, types, control flow |
-| 02 | Data Structures | 2h | Lists, dicts, sets, tuples |
-| 03 | Functions & Scope | 1.5h | Functions, *args/**kwargs, scope |
-| 04 | File Handling | 1.5h | I/O, JSON, YAML, context managers |
-| 05 | Error Handling | 1h | Try/except, custom exceptions, logging |
-| 06 | Strings & Regex | 1.5h | String methods, f-strings, regex |
-| 07 | Common Algorithms | 2h | Searching, sorting, two-pointer technique |
-| 08 | SRE Patterns | 1.5h | APIs, CLI args, environment, timestamps |
-| 09 | Interview Problems | 2h | 15-20 medium difficulty practice problems |
+| [01](./01-fundamentals.md) | Fundamentals | 1.5h | Variables, types, control flow |
+| [02](./02-data-structures.md) | Data Structures | 2h | Lists, dicts, sets, tuples |
+| [03](./03-functions-scope.md) | Functions & Scope | 1.5h | Functions, *args/**kwargs, scope |
+| [04](./04-file-handling.md) | File Handling | 1.5h | I/O, JSON, YAML, context managers |
+| [05](./05-error-handling.md) | Error Handling | 1h | Try/except, custom exceptions, logging |
+| [06](./06-strings-regex.md) | Strings & Regex | 1.5h | String methods, f-strings, regex |
+| [07](./07-common-algorithms.md) | Common Algorithms | 2h | Searching, sorting, two-pointer technique |
+| [08](./08-sre-patterns.md) | SRE Patterns | 1.5h | APIs, CLI args, environment, timestamps |
+| [09](./09-interview-problems.md) | Interview Problems | 2h | 15-20 medium difficulty practice problems |
 
 ## What This IS
 
@@ -89,25 +89,25 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 ## Study Plan
 
 ### Week 1: Foundations
-- [ ] Read 01-Fundamentals
-- [ ] Read 02-Data Structures
+- [ ] Read [01-Fundamentals](./01-fundamentals.md)
+- [ ] Read [02-Data Structures](./02-data-structures.md)
 - [ ] Do exercises in both
 - [ ] Review gotchas
 
 ### Week 2: Intermediate
-- [ ] Read 03-Functions & Scope
-- [ ] Read 04-File Handling
-- [ ] Read 05-Error Handling
+- [ ] Read [03-Functions & Scope](./03-functions-scope.md)
+- [ ] Read [04-File Handling](./04-file-handling.md)
+- [ ] Read [05-Error Handling](./05-error-handling.md)
 - [ ] Do all exercises
 
 ### Week 3: Applied Skills
-- [ ] Read 06-Strings & Regex
-- [ ] Read 07-Common Algorithms
-- [ ] Read 08-SRE Patterns
-- [ ] Solve at least 5 interview problems
+- [ ] Read [06-Strings & Regex](./06-strings-regex.md)
+- [ ] Read [07-Common Algorithms](./07-common-algorithms.md)
+- [ ] Read [08-SRE Patterns](./08-sre-patterns.md)
+- [ ] Solve at least 5 interview problems from [09-Interview Problems](./09-interview-problems.md)
 
 ### Week 4: Practice Under Pressure
-- [ ] Re-solve problems from memory (no looking!)
+- [ ] Re-solve problems from [09-Interview Problems](./09-interview-problems.md) from memory (no looking!)
 - [ ] Time yourself — aim for easy in 10 min, medium in 20 min
 - [ ] Practice out loud (pretend interviewer is listening)
 - [ ] Review solutions and learn alternative approaches
