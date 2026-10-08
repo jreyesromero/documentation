@@ -4,6 +4,10 @@ Welcome to the coding interview guide for SRE, DevOps, and Platform Engineers. T
 
 > **How to use this section:** These docs make your practice *efficient* — they are a reference and scaffold, not a substitute for actually writing code. Read the pattern, study the annotated solution, then **solve the problems yourself** on LeetCode/NeetCode to build real muscle memory.
 
+## Quick Links
+
+**New to Python?** Start here → [Python Basics](./python-basics/README.md) — 8-12 hours of foundational Python tailored for interviews, with exercises and SRE-specific patterns.
+
 ## Table of Contents
 
 ### Meta-Skills (read these first)
