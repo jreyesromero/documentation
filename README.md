@@ -4,32 +4,32 @@ Welcome to the documentation repository for DevOps, Platform Engineers, and SRE 
 
 ## Contents
 
-- **[Linux Commands](./linux/linux.md)** — Essential Linux commands reference guide
+- **[Linux Commands](./linux/README.md)** — Essential Linux commands reference guide
   - 16 command files (ps, top, systemctl, journalctl, netstat, df, du, find, and more)
   - 50+ real-world SRE troubleshooting scenarios
   - All commands with practical examples and interview tips
   - **Coverage:** 25% of typical SRE technical interview
 
-- **[Networking & Connectivity](./networking/networking.md)** — Network protocols and troubleshooting guide
+- **[Networking & Connectivity](./networking/README.md)** — Network protocols and troubleshooting guide
   - 6 comprehensive files: DNS, TCP, HTTP, TLS, Tools (curl/nc/tcpdump), Troubleshooting Checklist
   - 20+ production troubleshooting scenarios with complete investigation workflows
   - Complete protocol walkthroughs (DNS resolution → TCP handshake → HTTP → TLS)
   - **Coverage:** 20% of typical SRE technical interview
 
-- **[DevOps & SRE Fundamentals](./devops-sre/devops-sre.md)** — Core reliability engineering concepts
+- **[DevOps & SRE Fundamentals](./devops-sre/README.md)** — Core reliability engineering concepts
   - 5 comprehensive files: SRE Fundamentals, CI/CD, Deployment Strategies, IaC, Monitoring & Alerting
   - SLI/SLO/SLA, error budgets, the four golden signals, deployment patterns
   - 17+ interview scenarios with strong sample answers
   - **Coverage:** 15% of typical SRE technical interview
 
-- **[Kubernetes](./kubernetes/kubernetes.md)** — Concepts and hands-on troubleshooting
+- **[Kubernetes](./kubernetes/README.md)** — Concepts and hands-on troubleshooting
   - 5 comprehensive files: Core Concepts, Probes & Resources, kubectl Commands, Troubleshooting
   - Core objects, liveness/readiness probes, requests/limits, QoS
   - Failure debugging: CrashLoopBackOff, OOMKilled, Pending, ImagePullBackOff, service issues
   - 14+ interview scenarios covering both conceptual and hands-on rounds
   - **Coverage:** Conceptual round + dedicated hands-on troubleshooting round
 
-- **[Algorithms & Coding](./algorithms-coding/algorithms-coding.md)** — LeetCode patterns with Python solutions
+- **[Algorithms & Coding](./algorithms-coding/README.md)** — LeetCode patterns with Python solutions
   - 8 files: Interview Protocol, Complexity Analysis, and 6 pattern guides
   - 22 verified LeetCode problems grouped by pattern, with annotated solutions
   - Arrays/HashMap, Two Pointers, Sliding Window, Stack, Trees/Graphs, Binary Search/Linked Lists
