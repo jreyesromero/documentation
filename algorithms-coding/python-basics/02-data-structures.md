@@ -116,6 +116,69 @@ for value in person.values():
     print(value)
 ```
 
+### List of Dictionaries (Multiple Records)
+
+A **list of dictionaries** is a common pattern for representing multiple records or objects (like people, products, log entries). Each dictionary is one record.
+
+```python
+# Creating a list of dictionaries
+people = [
+    {"name": "Alice", "age": 25, "city": "NYC"},
+    {"name": "Bob", "age": 30, "city": "LA"},
+    {"name": "Charlie", "age": 28, "city": "NYC"}
+]
+
+# Accessing elements
+people[0]              # {"name": "Alice", "age": 25, "city": "NYC"}
+people[0]["name"]      # "Alice" (access by index, then by key)
+people[1]["age"]       # 30
+
+# Iterating over records
+for person in people:
+    print(f"{person['name']} is {person['age']} years old")
+    # Alice is 25 years old
+    # Bob is 30 years old
+    # Charlie is 28 years old
+
+# Finding a specific record
+target = next((p for p in people if p["name"] == "Bob"), None)
+# {"name": "Bob", "age": 30, "city": "LA"}
+
+# Filtering (get all people from NYC)
+nyc_people = [p for p in people if p["city"] == "NYC"]
+# [{"name": "Alice", ...}, {"name": "Charlie", ...}]
+
+# Updating a record
+people[0]["age"] = 26  # Update Alice's age
+# or
+for person in people:
+    if person["name"] == "Bob":
+        person["city"] = "Chicago"
+
+# Adding a new record
+people.append({"name": "Diana", "age": 29, "city": "Boston"})
+
+# Extracting a column (all names)
+names = [p["name"] for p in people]  # ["Alice", "Bob", "Charlie", "Diana"]
+
+# Sorting by a field
+sorted_by_age = sorted(people, key=lambda p: p["age"])
+# [{"name": "Alice", "age": 26, ...}, {"name": "Charlie", "age": 28, ...}, ...]
+
+# Practical: Group by city
+from collections import defaultdict
+by_city = defaultdict(list)
+for person in people:
+    by_city[person["city"]].append(person)
+# {"NYC": [Alice dict, Charlie dict], "LA": [Bob dict], "Chicago": [Bob dict], ...}
+```
+
+This pattern is **fundamental** for working with:
+- JSON data from APIs
+- Database query results
+- CSV file rows
+- Configuration files with multiple objects
+
 ### Dictionary Comprehensions
 
 ```python
