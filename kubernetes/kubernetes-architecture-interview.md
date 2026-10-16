@@ -19,48 +19,48 @@ System components run in `kube-system` namespace. **Metrics Server** collects cl
 ## 🎯 The Architecture at a Glance
 
 ```
-┌─────────────────── KUBERNETES CLUSTER ──────────────────┐
-│                                                          │
-│  ┌────────────────── CONTROL PLANE (Master) ──────────┐ │
-│  │                                                     │ │
-│  │  ┌──────────────────────────────────────────────┐  │ │
-│  │  │ API Server                                   │  │ │
-│  │  │ (Entry point for all requests)               │  │ │
-│  │  └──────────────────────────────────────────────┘  │ │
-│  │           ↓                                          │ │
-│  │  ┌──────────────────────────────────────────────┐  │ │
-│  │  │ etcd                                         │  │ │
-│  │  │ (Persistent store of cluster state)          │  │ │
-│  │  └──────────────────────────────────────────────┘  │ │
-│  │           ↓                                          │ │
-│  │  ┌──────────────────────────────────────────────┐  │ │
-│  │  │ Scheduler                                    │  │ │
-│  │  │ (Assigns pods to nodes)                      │  │ │
-│  │  └──────────────────────────────────────────────┘  │ │
-│  │           ↓                                          │ │
-│  │  ┌──────────────────────────────────────────────┐  │ │
-│  │  │ Controller Manager                           │  │ │
-│  │  │ (Watches state, makes corrections)           │  │ │
-│  │  └──────────────────────────────────────────────┘  │ │
-│  │                                                     │ │
-│  └─────────────────────────────────────────────────────┘ │
-│                          ↑                               │
-│                   (API server coordinates)               │
-│                          ↓                               │
-│  ┌────────────── WORKER NODES (can be many) ─────────┐ │
-│  │                                                     │ │
-│  │  ┌─ Node 1 ─┐  ┌─ Node 2 ─┐  ┌─ Node N ─┐        │ │
-│  │  │ Kubelet   │  │ Kubelet   │  │ Kubelet   │        │ │
-│  │  │ kube-     │  │ kube-     │  │ kube-     │        │ │
-│  │  │ proxy     │  │ proxy     │  │ proxy     │        │ │
-│  │  │ Container │  │ Container │  │ Container │        │ │
-│  │  │ Runtime   │  │ Runtime   │  │ Runtime   │        │ │
-│  │  │ Pods...   │  │ Pods...   │  │ Pods...   │        │ │
-│  │  └───────────┘  └───────────┘  └───────────┘        │ │
-│  │                                                     │ │
-│  └─────────────────────────────────────────────────────┘ │
-│                                                          │
-└──────────────────────────────────────────────────────────┘
+┌──────────────────── KUBERNETES CLUSTER ──────────────────────┐
+│                                                               │
+│  ┌────────────────── CONTROL PLANE (Master) ────────────┐   │
+│  │                                                       │   │
+│  │                    ┌──────────────┐                  │   │
+│  │                    │  API Server  │                  │   │
+│  │                    │ (Coordinator)│                  │   │
+│  │                    └──────────────┘                  │   │
+│  │                         ↑↓                           │   │
+│  │                    (reads/writes)                    │   │
+│  │                         ↑↓                           │   │
+│  │                    ┌──────────────┐                  │   │
+│  │                    │     etcd     │                  │   │
+│  │                    │  (Database)  │                  │   │
+│  │                    └──────────────┘                  │   │
+│  │                                                       │   │
+│  │    ┌─────────────────┬──────────────────┐           │   │
+│  │    ↓                 ↓                  ↓           │   │
+│  │  Scheduler      Controller Manager   Metrics Server │   │
+│  │  (Assign pods)  (Reconcile state)    (Collect CPU/  │   │
+│  │                                        memory)       │   │
+│  │                                                       │   │
+│  └───────────────────────────────────────────────────────┘   │
+│                         ↓                                     │
+│              (API server coordinates all)                     │
+│                         ↓                                     │
+│  ┌────────────── WORKER NODES (can be many) ──────────┐    │
+│  │                                                     │    │
+│  │  ┌─ Node 1 ─┐  ┌─ Node 2 ─┐  ┌─ Node N ─┐        │    │
+│  │  │ Kubelet   │  │ Kubelet   │  │ Kubelet   │        │    │
+│  │  │ kube-     │  │ kube-     │  │ kube-     │        │    │
+│  │  │ proxy     │  │ proxy     │  │ proxy     │        │    │
+│  │  │ Container │  │ Container │  │ Container │        │    │
+│  │  │ Runtime   │  │ Runtime   │  │ Runtime   │        │    │
+│  │  │ Pods...   │  │ Pods...   │  │ Pods...   │        │    │
+│  │  └───────────┘  └───────────┘  └───────────┘        │    │
+│  │       ↑              ↑              ↑                │    │
+│  │  (Metrics collected by Metrics Server)              │    │
+│  │                                                     │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                                                               │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
