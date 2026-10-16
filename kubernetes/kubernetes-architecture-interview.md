@@ -75,6 +75,16 @@ KEY COMMUNICATION FLOW:
 
 ---
 
+---
+
+## 📊 Official Architecture Diagram
+
+![Kubernetes Cluster Architecture - Official](./kubernetes-cluster-architecture.svg)
+
+*Source: [Kubernetes Official Documentation](https://kubernetes.io/docs/concepts/architecture/)*
+
+---
+
 ## 🏗️ Control Plane Components
 
 ### 1. **API Server** (`kube-apiserver`)
