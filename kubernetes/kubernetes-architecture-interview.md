@@ -19,48 +19,58 @@ System components run in `kube-system` namespace. **Metrics Server** collects cl
 ## 🎯 The Architecture at a Glance
 
 ```
-┌─────────────────────── KUBERNETES CLUSTER ──────────────────────┐
-│                                                                   │
-│  ┌──────────────────── CONTROL PLANE (Master) ──────────────┐  │
-│  │                                                            │  │
-│  │                     ┌───────────────┐                     │  │
-│  │                     │  API Server   │                     │  │
-│  │                     │ (Coordinator) │                     │  │
-│  │                     └───────────────┘                     │  │
-│  │                          ↑↓                               │  │
-│  │                     (reads/writes)                        │  │
-│  │                          ↑↓                               │  │
-│  │                     ┌───────────────┐                     │  │
-│  │                     │     etcd      │                     │  │
-│  │                     │   (Database)  │                     │  │
-│  │                     └───────────────┘                     │  │
-│  │                                                            │  │
-│  │      ┌──────────────┬──────────────┬──────────────┐      │  │
-│  │      ↓              ↓              ↓              ↓      │  │
-│  │   Scheduler  Controller Manager  Metrics Server  kube-   │  │
-│  │   (Assign    (Reconcile state)   (Collect metrics) dns   │  │
-│  │    pods)                          from kubelets   (DNS)  │  │
-│  │                                                            │  │
-│  └────────────────────────────────────────────────────────────┘  │
-│                           ↓                                       │
-│              (API server coordinates all)                         │
-│                           ↓                                       │
-│  ┌──────────────── WORKER NODES (can be many) ─────────────┐   │
-│  │                                                           │   │
-│  │   ┌──── Node 1 ────┐  ┌──── Node 2 ────┐  ┌─ Node N ─┐ │   │
-│  │   │   Kubelet      │  │   Kubelet      │  │ Kubelet  │ │   │
-│  │   │   kube-proxy   │  │   kube-proxy   │  │ kube-    │ │   │
-│  │   │   Container    │  │   Container    │  │ proxy    │ │   │
-│  │   │   Runtime      │  │   Runtime      │  │ Container│ │   │
-│  │   │   Pods...      │  │   Pods...      │  │ Runtime  │ │   │
-│  │   │                │  │                │  │ Pods...  │ │   │
-│  │   └────────────────┘  └────────────────┘  └──────────┘ │   │
-│  │         ↑                  ↑                  ↑          │   │
-│  │   (Metrics collected by Metrics Server from kubelets)   │   │
-│  │                                                           │   │
-│  └───────────────────────────────────────────────────────────┘   │
-│                                                                   │
-└─────────────────────────────────────────────────────────────────┘
+KUBERNETES CLUSTER
+├─ CONTROL PLANE (Master)
+│  ├─ API Server
+│  │  ├─ Entry point for all kubectl commands
+│  │  ├─ Validates requests
+│  │  ├─ Stores state in etcd
+│  │  └─ Coordinates all other components
+│  │
+│  ├─ etcd
+│  │  ├─ Persistent state database
+│  │  ├─ Stores: Deployments, Pods, Services, Configs, Secrets
+│  │  └─ Only API Server directly accesses it
+│  │
+│  ├─ Scheduler
+│  │  ├─ Watches for unassigned Pods
+│  │  ├─ Selects best Node based on resources
+│  │  └─ Communicates via API Server
+│  │
+│  ├─ Controller Manager
+│  │  ├─ Reconciles desired state vs actual
+│  │  ├─ Creates/deletes Pods as needed
+│  │  └─ Communicates via API Server
+│  │
+│  └─ Metrics Server (in kube-system namespace)
+│     ├─ Collects CPU/Memory metrics from kubelets
+│     ├─ Used by: kubectl top, HPA
+│     └─ Communicates via API Server
+│
+└─ WORKER NODES (can be many)
+   │
+   ├─ Node 1
+   │  ├─ Kubelet (runs pods, health monitoring)
+   │  ├─ kube-proxy (networking, load balancing)
+   │  ├─ Container Runtime (Docker, containerd, etc.)
+   │  └─ Pods (your applications)
+   │
+   ├─ Node 2
+   │  ├─ Kubelet
+   │  ├─ kube-proxy
+   │  ├─ Container Runtime
+   │  └─ Pods
+   │
+   └─ Node N
+      ├─ Kubelet (sends metrics to Metrics Server)
+      ├─ kube-proxy
+      ├─ Container Runtime
+      └─ Pods
+
+KEY COMMUNICATION FLOW:
+  All components → API Server ← All components
+  API Server ↔ etcd (persistent storage)
+  Kubelets → Metrics Server (metrics collection)
 ```
 
 ---
