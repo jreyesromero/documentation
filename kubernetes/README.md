@@ -4,6 +4,15 @@ Welcome to the Kubernetes reference for SRE, DevOps, and Platform Engineers. Thi
 
 ## Table of Contents
 
+### Architecture & Fundamentals
+
+- [Kubernetes Architecture](./kubernetes-architecture-interview.md) - **START HERE** for system understanding
+  - Control plane components (API server, etcd, scheduler, controller manager)
+  - Worker node components (kubelet, kube-proxy, container runtime)
+  - **Metrics Server** (collects cluster metrics)
+  - How components work together
+  - Real interview questions asked by CTO/technical leads
+
 ### Concepts & Objects
 
 - [Core Concepts](./concepts.md) - The Building Blocks
