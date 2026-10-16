@@ -19,6 +19,11 @@ Welcome to the Networking reference guide for SRE, DevOps, and Platform Engineer
 
 ### Core Protocols & Fundamentals
 
+- [TCP/IP Fundamentals](./tcp-ip-fundamentals-interview.md) - **START HERE** for foundational concepts
+  - TCP/IP layers, MAC vs IP addressing
+  - Packet encapsulation, MTU, ports
+  - Interview questions with answers
+
 - [DNS](./dns.md) - Domain Name System
   - DNS resolution flow, record types, TTL, caching
   - 6 production troubleshooting scenarios

@@ -202,6 +202,7 @@ timeout 5 bash -c 'cat < /dev/null > /dev/tcp/host/port'  # Port open?
 
 | Day | Topic | Files to Read | Time |
 |-----|-------|---------------|------|
+| 1 | TCP/IP Fundamentals | `tcp-ip-fundamentals-interview.md` | 30 min |
 | 1 | DNS Fundamentals | `dns.md` (Quick Ref + Scenarios) | 45 min |
 | 2 | TCP Concepts & Troubleshooting | `tcp.md` (States + Issues) | 60 min |
 | 3 | HTTP & Status Codes | `http.md` (Methods + Codes + Scenarios) | 45 min |
@@ -214,6 +215,9 @@ timeout 5 bash -c 'cat < /dev/null > /dev/tcp/host/port'  # Port open?
 
 ## 🔗 File Map (Quick Navigation)
 
+**Foundational (Start here if new to networking):**
+- [TCP/IP Fundamentals](./tcp-ip-fundamentals-interview.md) - Layers, MAC vs IP, encapsulation, ports
+
 **By Problem Type:**
 - **"Can't reach service"** → Start with [troubleshooting-checklist.md](./troubleshooting-checklist.md)
 - **"DNS issue"** → [dns.md](./dns.md) - Scenarios 1-4
@@ -224,6 +228,7 @@ timeout 5 bash -c 'cat < /dev/null > /dev/tcp/host/port'  # Port open?
 - **"How do I test?"** → [curl-tools.md](./curl-tools.md)
 
 **By Topic:**
+- [TCP/IP Fundamentals](./tcp-ip-fundamentals-interview.md) - Layers, addressing, encapsulation
 - [DNS](./dns.md) - Domain resolution, TTL, caching, nameservers
 - [TCP](./tcp.md) - Connection states, handshake, port issues
 - [HTTP](./http.md) - Methods, status codes, redirects, caching
