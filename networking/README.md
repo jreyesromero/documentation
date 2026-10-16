@@ -2,6 +2,19 @@
 
 Welcome to the Networking reference guide for SRE, DevOps, and Platform Engineers. This section covers essential networking concepts, protocols, and troubleshooting workflows for production environments.
 
+## 🎯 SRE Interview Preparation
+
+**New to networking interviews?** Start here for focused, practical preparation.
+
+- **[Networking Interview Master Guide](./networking-interview-guide.md)** ← **START HERE**
+  - 1-week study plan
+  - Typical SRE interview questions with sample answers
+  - Troubleshooting scenarios and mock interviews
+  - Quick command reference
+  - What interviewers are looking for
+
+---
+
 ## Table of Contents
 
 ### Core Protocols & Fundamentals
