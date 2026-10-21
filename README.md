@@ -36,6 +36,12 @@ Welcome to the documentation repository for DevOps, Platform Engineers, and SRE 
   - The 6-step interview protocol and Big-O analysis
   - **Coverage:** 25% of typical SRE technical interview (the coding round)
 
+- **[AWS Solutions Architect – Associate (SAA-C03)](./aws/README.md)** — Certification guide for AWS architecture
+  - 7 files: Exam overview, 4 domain guides, services reference, study plan, resources
+  - Domains: Security (30%), Resilience (26%), Performance (24%), Cost (20%)
+  - 1-hour/day 10–13 week study plan, 4 DR strategies, service decision matrix, exam-day tips
+  - Well-Architected Framework, Shared Responsibility Model, disaster recovery strategies, hands-on scenarios
+
 ---
 
 **Technical Interview Preparation:** These documents cover the core technical areas commonly tested in SRE and DevOps interviews. Start with Linux fundamentals, then progress to Networking, Algorithms/Python, DevOps fundamentals, and Kubernetes.
